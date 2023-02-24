@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "hm-api-python"
+version = "1.0.0"
+description = ""
+authors = ["Hongbo Miao"]
+packages = [{include = "flaskr"}]
+
+[tool.poetry.dependencies]
+python = "3.11.x"
+Flask = "2.2.3"
+Flask-APScheduler = "1.12.4"
+Flask-Cors = "3.0.10"
+confluent-kafka = "2.0.2"
+flask-sock = "0.6.0"
+gunicorn = "20.1.0"
+python-dotenv = "0.21.1"
+sentry-sdk = {version = "1.15.0", extras = ["flask"]}
+
+[tool.poetry.group.dev.dependencies]
+poethepoet = "0.18.1"
+pytest = "7.2.1"
+pytest-cov = "4.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poe.tasks]
+dev = "flask run"
+test = "pytest"
+test-coverage = "pytest --cov=. --cov-report=xml"
+serve = "gunicorn 'flaskr:create_app()' --bind=:35903 --workers=5"
+flask-help = "flask --help"
+flask-list-routes = "flask routes"
+flask-greet = "flask greet"
